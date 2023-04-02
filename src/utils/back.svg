@@ -1,0 +1,30 @@
+<svg
+  viewBox="-256 -256 1536.00 1536.00"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="#ffffff"
+  stroke="#ffffff"
+  stroke-width="51.2"
+>
+  <g
+    id="SVGRepo_bgCarrier"
+    stroke-width="0"
+    transform="translate(0,0), scale(1)"
+  ></g>
+  <g
+    id="SVGRepo_tracerCarrier"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke="#CCCCCC"
+    stroke-width="6.144"
+  ></g>
+  <g id="SVGRepo_iconCarrier">
+    <path
+      fill="#ffffff"
+      d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
+    ></path>
+    <path
+      fill="#ffffff"
+      d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+    ></path>
+  </g>
+</svg>

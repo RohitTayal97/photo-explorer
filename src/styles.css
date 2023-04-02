@@ -1,0 +1,93 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px 30px;
+}
+
+.explorer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1.5em;
+  margin-top: 1.5em;
+}
+
+.image-button {
+  padding: 0;
+  border: 0;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.photoViewer {
+  position: fixed;
+  background-color: black;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+}
+
+.photoViewer button {
+  background: rgba(204, 204, 204, 0.4);
+  padding: 0px;
+  border-radius: 2rem;
+  border: none;
+  z-index: 3;
+}
+
+.photoViewer svg {
+  width: 2.5rem;
+  max-width: 40px;
+}
+
+.photoViewer button:hover {
+  background-color: #383838;
+}
+
+.photoViewer button:disabled {
+  opacity: 0;
+}
+
+.goBack {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+}
+
+.change {
+  display: flex;
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.left {
+  margin-right: 1vh;
+}
+
+.right {
+  margin-left: 1vh;
+}
+
+.photoViewer-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+}
