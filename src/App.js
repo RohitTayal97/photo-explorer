@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import PhotoViewer from "./PhotoViewer";
+import { useEffect, useState, useRef } from "react";
+import PhotoViewer from "./components/PhotoViewer";
 import "./styles.css";
 import photos from "./data/photos";
 
 export default function App() {
   const [selectedId, setSelectedId] = useState(-1);
+  const lazyImagesRef = useRef([]);
 
-  const size = "thumb";
+  const size = "regular";
   const pixelsBeforeToLoad = "100px";
 
   useEffect(() => {
@@ -14,32 +15,40 @@ export default function App() {
       (entries, observer) => {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            const element = entry.target;
-            element.src = element.dataset.url;
-            observer.unobserve(element);
+            const image = entry.target;
+            image.src = image.dataset.url;
+            image.addEventListener("load", () => {
+              image.classList.remove("invisible");
+            });
+            observer.unobserve(image);
           }
         });
       },
       { rootMargin: pixelsBeforeToLoad }
     );
 
-    const lazyImages = document.querySelectorAll("[data-url]");
-    lazyImages.forEach((image) => {
-      observer.observe(image);
-    });
-  }, []);
+    if (lazyImagesRef.current) {
+      lazyImagesRef.current.forEach((imageRef) => {
+        observer.observe(imageRef);
+      });
+    }
+  }, [pixelsBeforeToLoad]);
 
   useEffect(() => {
     if (selectedId >= 0) {
-      document.body.style.overflow = "hidden";
+      document.body.classList.add("no-scroll");
     } else {
-      document.body.style.overflow = "unset";
+      document.body.classList.remove("no-scroll");
     }
   }, [selectedId]);
 
+  const addImageRef = (ref) => {
+    lazyImagesRef.current.push(ref);
+  };
+
   return (
     <div className="app">
-      <h2>Photos courtesy of Unsplash and it's users</h2>
+      <h1 className="header">Unsplash Gallary</h1>
       <div className="explorer">
         {photos.map((photo, index) => (
           <button
@@ -48,10 +57,9 @@ export default function App() {
             onClick={() => setSelectedId(index)}
           >
             <img
-              src=""
-              className="image"
+              className="image invisible"
+              ref={addImageRef}
               data-url={photo.urls[size]}
-              // loading="lazy"
               alt={`Taken by ${photo.user.name}`}
             />
           </button>

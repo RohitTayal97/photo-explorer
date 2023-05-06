@@ -1,14 +1,18 @@
-import { useState } from "react";
-import "./styles.css";
-import photos from "./data/photos";
-import { ReactComponent as BackSvg } from "./utils/back.svg";
-import { ReactComponent as LeftSvg } from "./utils/left.svg";
-import { ReactComponent as RightSvg } from "./utils/right.svg";
+import { useEffect, useState } from "react";
+import photos from "../data/photos";
+import { ReactComponent as BackSvg } from "../utils/back.svg";
+import { ReactComponent as LeftSvg } from "../utils/left.svg";
+import { ReactComponent as RightSvg } from "../utils/right.svg";
 
 export default function PhotoViewer({ index, exitViewer }) {
   const [photoIndex, setPhotoIndex] = useState(index);
+  const [isLoading, setIsLoading] = useState();
 
-  const size = "regular";
+  useEffect(() => {
+    setIsLoading(true);
+  }, [photoIndex]);
+
+  const size = "raw";
   const photosLength = photos.length;
 
   const changePhotoIndex = (changeBy) => {
@@ -22,9 +26,11 @@ export default function PhotoViewer({ index, exitViewer }) {
       <button className="goBack" onClick={exitViewer}>
         <BackSvg />
       </button>
+      {isLoading && <div class="loader"></div>}
       <img
         className="photoViewer-image"
         src={photos[photoIndex].urls[size]}
+        onLoad={() => setIsLoading(false)}
         alt={`Taken by ${photos[photoIndex].user.name}`}
       />
       <div className="change">
